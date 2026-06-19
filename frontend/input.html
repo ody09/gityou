@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إدخال الجودة - مصنع لورد</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --border: #1e2d45;
+    --accent: #00d4ff;
+    --accent2: #0066ff;
+    --green: #00e676;
+    --red: #ff1744;
+    --yellow: #ffd740;
+    --text: #e8f0fe;
+    --muted: #6b7fa3;
+    --font: 'IBM Plex Sans Arabic', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 32px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .nav-logo { font-size: 18px; font-weight: 700; color: var(--accent); }
+  .nav-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tab-btn {
+    padding: 8px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .tab-btn.active { background: var(--accent2); border-color: var(--accent2); color: white; }
+  .tab-btn:hover { border-color: var(--accent); color: var(--accent); }
+  a.tab-btn { display: inline-block; }
+
+  .page { padding: 32px; }
+  .input-wrap { max-width: 800px; margin: 0 auto; }
+  .input-header { text-align: center; margin-bottom: 32px; }
+  .input-header h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .input-header p { color: var(--muted); font-size: 14px; }
+
+  .login-screen {
+    max-width: 400px;
+    margin: 80px auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px 36px;
+    text-align: center;
+  }
+  .login-icon { font-size: 48px; margin-bottom: 16px; }
+  .login-screen h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+  .login-screen p { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+  .login-input {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    color: var(--text);
+    font-size: 16px;
+    font-family: var(--font);
+    outline: none;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .login-input:focus { border-color: var(--accent2); }
+  .login-input.error { border-color: var(--red); animation: shake 0.3s; }
+  @keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+  .login-error { color: var(--red); font-size: 12px; margin-bottom: 12px; }
+
+  .submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--accent2);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .submit-btn:hover { background: #0055dd; transform: translateY(-1px); }
+
+  .welcome-banner {
+    background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(0,102,255,0.05));
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .interval-panel {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    color: var(--text);
+  }
+  .interval-panel label {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .interval-input {
+    width: 100px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    text-align: center;
+    outline: none;
+  }
+  .interval-input:focus { border-color: var(--accent2); }
+
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .welcome-text { font-size: 14px; color: var(--accent); }
+  .welcome-text span { font-weight: 700; }
+  .logout-btn-small {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 12px;
+  }
+  .logout-btn-small:hover { border-color: var(--red); color: var(--red); }
+
+  .line-select-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .line-select-btn {
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  .line-select-btn .ln { font-size: 20px; font-weight: 700; color: var(--text); }
+  .line-select-btn .lp { font-size: 11px; margin-top: 4px; }
+  .line-select-btn.selected {
+    border-color: var(--accent2);
+    background: rgba(0,102,255,0.1);
+    color: var(--text);
+  }
+  .line-select-btn:hover:not(.selected) { border-color: var(--accent); }
+
+  .form-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .form-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 20px; color: var(--accent); }
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 12px; color: var(--muted); font-weight: 500; }
+  .form-group .range-hint { font-size: 11px; color: var(--accent); font-family: var(--mono); }
+  .form-group input {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 15px;
+    outline: none;
+    text-align: center;
+  }
+  .form-group input:focus { border-color: var(--accent2); }
+  .form-group input.valid { border-color: var(--green); }
+  .form-group input.invalid { border-color: var(--red); }
+
+  .no-line-msg { text-align: center; padding: 40px; color: var(--muted); font-size: 15px; }
+  .success-toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--green);
+    color: #000;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 700;
+    transition: transform 0.4s;
+    z-index: 999;
+  }
+  .success-toast.show { transform: translateX(-50%) translateY(0); }
+
+  .status-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .action-btn {
+    padding: 14px 8px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  .action-btn:hover:not(.active-state) { transform: translateY(-2px); }
+  .action-btn.start { border-color: var(--green); color: var(--green); background: rgba(0,230,118,0.08); }
+  .action-btn.stop { border-color: #f97316; color: #f97316; background: rgba(249,115,22,0.08); }
+  .action-btn.finish { border-color: var(--muted); color: var(--muted); background: rgba(107,127,163,0.08); }
+  .action-btn.active-state { opacity: 0.35; cursor: not-allowed; }
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    backdrop-filter: blur(4px);
+  }
+  .modal-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 32px;
+    width: 420px;
+    max-width: 92vw;
+  }
+  .modal-box h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; color: #f97316; }
+  .modal-box p { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
+  .modal-reasons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .reason-btn {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 13px;
+    text-align: center;
+  }
+  .reason-btn.selected {
+    border-color: #f97316;
+    background: rgba(249,115,22,0.12);
+    color: #f97316;
+    font-weight: 600;
+  }
+  .modal-other {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 14px;
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+    margin-bottom: 16px;
+    display: none;
+  }
+  .modal-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .modal-cancel {
+    padding: 13px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .modal-confirm {
+    padding: 13px;
+    border-radius: 10px;
+    border: none;
+    background: #f97316;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 700;
+  }
+
+  .notes-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 300;
+    backdrop-filter: blur(4px);
+  }
+  .notes-modal-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 32px;
+    width: 460px;
+    max-width: 92vw;
+  }
+  .notes-textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+    resize: vertical;
+    min-height: 110px;
+  }
+  .notes-modal-btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .notes-skip, .notes-confirm {
+    padding: 13px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .notes-skip { border: 1px solid var(--border); background: transparent; color: var(--muted); }
+  .notes-confirm { border: none; background: var(--muted); color: #fff; }
+
+  @media (max-width: 700px) {
+    .line-select-grid { grid-template-columns: repeat(2, 1fr); }
+    .form-grid { grid-template-columns: 1fr; }
+    .page { padding: 20px 16px; }
+    .nav { flex-direction: column; }
+    .nav-tabs { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">National Food Stuff Co <span style="font-size:11px;color:var(--yellow)">EST. 1999</span></div>
+  <div class="nav-tabs">
+    <a href="/index.html" class="tab-btn">🏠 القائمة الرئيسية</a>
+    <a href="input.html" class="tab-btn active">📝 إدخال الجودة</a>
+    <a href="settings.html" class="tab-btn">⚙️ الإعدادات</a>
+  </div>
+</nav>
+
+<div class="page">
+  <!-- شاشة تسجيل الدخول -->
+  <div id="login-screen">
+    <div class="login-screen">
+      <div class="login-icon">🔐</div>
+      <h2>تسجيل الدخول</h2>
+      <p>أدخل اسم المستخدم وكلمة السر</p>
+      <input class="login-input" type="text" id="login-username" placeholder="اسم المستخدم" onkeydown="if(event.key==='Enter') checkLogin()">
+      <input class="login-input" type="password" id="login-password" placeholder="كلمة السر" onkeydown="if(event.key==='Enter') checkLogin()">
+      <div class="login-error" id="login-error"></div>
+      <button class="submit-btn" onclick="checkLogin()">دخول</button>
+    </div>
+  </div>
+
+  <!-- محتوى إدخال الجودة -->
+  <div id="input-content" style="display:none">
+    <div class="input-wrap">
+      <div class="input-header">
+        <h2>إدخال قراءات الجودة</h2>
+        <p>اختر الخط ثم سجّل حالته وأدخل القيم</p>
+      </div>
+
+      <div class="welcome-banner">
+        <div class="welcome-text">👋 مرحباً <span id="logged-user-name"></span> (مراقب جودة)</div>
+        <button class="logout-btn-small" onclick="logout()">🚪 تسجيل خروج</button>
+      </div>
+
+      <div class="interval-panel">
+        <label>مدة الانتظار بعد الإرسال</label>
+        <div style="font-weight:700">10 دقائق (ثابت)</div>
+      </div>
+
+      <div class="line-select-grid" id="line-select-grid"></div>
+      <div id="status-actions-area"></div>
+      <div id="form-area">
+        <div class="no-line-msg">⬆️ اختر خط الإنتاج أولاً</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal التوقف -->
+<div class="modal-overlay" id="stop-modal" style="display:none">
+  <div class="modal-box">
+    <h3>🔴 إيقاف الخط</h3>
+    <p>اختر سبب التوقف</p>
+    <div class="modal-reasons">
+      <button class="reason-btn" onclick="selectReason(this,'عطل ميكانيكي')">🔧 عطل ميكانيكي</button>
+      <button class="reason-btn" onclick="selectReason(this,'صيانة مجدولة')">🛠️ صيانة مجدولة</button>
+      <button class="reason-btn" onclick="selectReason(this,'نقص مواد خام')">📦 نقص مواد خام</button>
+      <button class="reason-btn" onclick="selectReason(this,'مشكلة كهربائية')">⚡ مشكلة كهربائية</button>
+      <button class="reason-btn" onclick="selectReason(this,'تغيير صنف')">🔄 تغيير صنف</button>
+      <button class="reason-btn" onclick="selectReason(this,'أخرى')">📝 أخرى</button>
+    </div>
+    <input class="modal-other" id="modal-other-text" placeholder="اكتب السبب...">
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeStopModal()">إلغاء</button>
+      <button class="modal-confirm" onclick="confirmStop()">تأكيد الإيقاف</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal الإطفاء -->
+<div class="notes-modal-overlay" id="notes-modal" style="display:none">
+  <div class="notes-modal-box">
+    <h3>⚫ إطفاء الخط <span id="notes-line-num"></span></h3>
+    <p>أضف ملاحظاتك قبل إطفاء الخط</p>
+    <textarea class="notes-textarea" id="notes-textarea" placeholder="مثال: الخط عمل بشكل جيد..."></textarea>
+    <div class="notes-modal-btns">
+      <button class="notes-skip" onclick="confirmFinish(false)">تخطي بدون ملاحظات</button>
+      <button class="notes-confirm" onclick="confirmFinish(true)">⚫ حفظ وإطفاء الخط</button>
+    </div>
+  </div>
+</div>
+
+<div class="success-toast" id="toast">✅ تم الحفظ بنجاح!</div>
+
+<script src="input.js"></script>
+</body>
+</html>

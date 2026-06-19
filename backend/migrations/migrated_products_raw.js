@@ -1,0 +1,12 @@
+{
+    'lord_sticks_cheese': { name: 'أصابع لورد — جبنة', specs: [
+      { key:'moisture_mix', label:'رطوبة الخلطة', unit:'%', min:1.2, max:1.8 },
+      { key:'moisture_pre', label:'رطوبة قبل القلاية', unit:'%', min:1.0, max:1.5 }
+    ]},
+    'lord_sticks_orange': { name: 'أصابع لورد — برتقالي', specs: [
+      { key:'moisture_mix', label:'رطوبة الخلطة', unit:'%', min:1.2, max:1.8 }
+    ]},
+    'tasali_lord': { name: 'تسالي لورد', specs: [
+      { key:'moisture_pallet', label:'رطوبة الباليت', unit:'%', min:1.0, max:1.5 }
+    ]}
+  }
