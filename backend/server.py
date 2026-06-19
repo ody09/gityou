@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, send_from_directory
-from conn import get_conn
+from .conn import get_conn
 from datetime import datetime, timedelta
 import json
 import os
